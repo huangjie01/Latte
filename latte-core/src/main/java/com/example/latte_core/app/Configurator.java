@@ -1,10 +1,14 @@
 package com.example.latte_core.app;
 
+import android.content.Context;
+
 import com.joanzapata.iconify.IconFontDescriptor;
 import com.joanzapata.iconify.Iconify;
 
 import java.util.ArrayList;
 import java.util.WeakHashMap;
+
+import okhttp3.Interceptor;
 
 /**
  * Created by huangjie on 2018/4/10.
@@ -12,8 +16,9 @@ import java.util.WeakHashMap;
 
 public class Configurator {
 
-    private static final WeakHashMap<String, Object> LATTE_CONFIGS = new WeakHashMap<>();
+    private static final WeakHashMap<Object, Object> LATTE_CONFIGS = new WeakHashMap<>();
     private static final ArrayList<IconFontDescriptor> ICONS = new ArrayList<>();
+    private static final ArrayList<Interceptor> INTERCEPTORS = new ArrayList<>();
 
     private Configurator() {
         LATTE_CONFIGS.put(ConfigType.CONFIG_READY.name(), false);
@@ -26,7 +31,7 @@ public class Configurator {
     }
 
 
-    final WeakHashMap<String, Object> getLatteConfigs() {
+    final WeakHashMap<Object, Object> getLatteConfigs() {
         return LATTE_CONFIGS;
     }
 
@@ -46,6 +51,7 @@ public class Configurator {
         LATTE_CONFIGS.put(ConfigType.CONFIG_READY.name(), true);
     }
 
+
     private void initIcons() {
 
         if (ICONS.size() > 0) {
@@ -64,6 +70,25 @@ public class Configurator {
      */
     public final Configurator withIcon(IconFontDescriptor descriptor) {
         ICONS.add(descriptor);
+        return this;
+    }
+
+
+    public final Configurator withContext(Context context) {
+        getLatteConfigs().put(ConfigType.APPLICATION_CONTEXT, context.getApplicationContext());
+        return this;
+    }
+
+
+    public final Configurator withInterceptor(Interceptor interceptor) {
+        INTERCEPTORS.add(interceptor);
+        getLatteConfigs().put(ConfigType.INTERCEPTOR.name(), INTERCEPTORS);
+        return this;
+    }
+
+    public final Configurator withInterceptor(ArrayList<Interceptor> interceptor) {
+        INTERCEPTORS.addAll(interceptor);
+        getLatteConfigs().put(ConfigType.INTERCEPTOR.name(), INTERCEPTORS);
         return this;
     }
 

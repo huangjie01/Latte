@@ -2,6 +2,7 @@ package com.example.huangjie.latte;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -26,12 +27,14 @@ public class MainDelegate extends LatteDelegate {
         testHttp();
     }
 
+
     private void testHttp() {
         RestClient.buidler()
-                .url("http://news.baidu.com")
+                .url("http://172.0.0.1/index")
                 .success(new ISuccess() {
                     @Override
                     public void onSuccess(String response) {
+                        Log.e("haungjie", response);
                         Toast.makeText(getContext(), response, Toast.LENGTH_LONG).show();
                     }
                 })

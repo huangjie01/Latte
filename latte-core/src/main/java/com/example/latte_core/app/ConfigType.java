@@ -18,7 +18,12 @@ public enum ConfigType {
      */
     CONFIG_READY,
     /**
-     *
+     * 图标
      */
-    ICON
+    ICON,
+
+    /**
+     * 配置拦截器
+     */
+    INTERCEPTOR
 }
