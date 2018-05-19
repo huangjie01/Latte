@@ -1,5 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'com.jakewharton.butterknife'
+
 android {
     compileSdkVersion 26
     buildToolsVersion '26.0.3'
@@ -47,5 +48,10 @@ dependencies {
     compile 'com.bigkoo:convenientbanner:2.0.5'
     compile 'com.alibaba:fastjson:1.1.57.android'
     compile 'org.greenrobot:greendao:3.2.0'
+
+    compile 'com.facebook.stetho:stetho:1.5.0'
+
+    compile 'com.facebook.stetho:stetho-okhttp3:1.5.0'
+
 
 }

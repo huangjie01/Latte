@@ -1,5 +1,6 @@
 package com.example.latte_ec.launcher;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatTextView;
@@ -9,6 +10,7 @@ import com.example.latte_core.delegates.LatteDelegate;
 import com.example.latte_core.utils.storage.LattePreference;
 import com.example.latte_core.utils.timer.BaseTimerTask;
 import com.example.latte_core.utils.timer.ITimerListener;
+import com.example.latte_core.view.launcher.ILauncherListener;
 import com.example.latte_core.view.launcher.ScrollLauncherTag;
 import com.example.latte_ec.R;
 import com.example.latte_ec.R2;
@@ -29,6 +31,7 @@ public class LauncherDelegate extends LatteDelegate implements ITimerListener {
     AppCompatTextView mTvTimer;
     Timer mTimer;
     private int mCount = 5;
+    private ILauncherListener mLauncherListener;
 
     @Override
     public Object setLayout() {
@@ -39,6 +42,15 @@ public class LauncherDelegate extends LatteDelegate implements ITimerListener {
     public void onBindView(@Nullable Bundle savedInstanceState, View rootView) {
 
         initTimer();
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        if (activity instanceof ILauncherListener) {
+            mLauncherListener = (ILauncherListener) activity;
+        }
+
     }
 
     @Override

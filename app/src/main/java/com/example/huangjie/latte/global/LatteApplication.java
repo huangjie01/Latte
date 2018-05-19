@@ -5,6 +5,8 @@ import android.app.Application;
 import com.example.huangjie.latte.R;
 import com.example.latte_core.app.Latte;
 import com.example.latte_core.http.interceptor.DebugInterceptor;
+import com.example.latte_ec.database.DatabaseManager;
+import com.facebook.stetho.Stetho;
 import com.joanzapata.iconify.fonts.FontAwesomeModule;
 
 /**
@@ -21,6 +23,15 @@ public class LatteApplication extends Application {
                 .withIcon(new FontAwesomeModule())
                 .withInterceptor(new DebugInterceptor("index", R.raw.test))
                 .configure();
+        DatabaseManager.getInstance().init(this);
+        initStetho();
+    }
 
+    private void initStetho() {
+        Stetho.initialize(
+                Stetho.newInitializerBuilder(this)
+                        .enableDumpapp(Stetho.defaultDumperPluginsProvider(this))
+                        .enableWebKitInspector(Stetho.defaultInspectorModulesProvider(this))
+                        .build());
     }
 }
